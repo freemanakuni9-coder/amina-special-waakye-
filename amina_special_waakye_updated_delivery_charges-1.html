@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#7c2d12">
+<title>Amina Special Waakye | Order Food</title>
+<style>
+:root{--brand:#7c2d12;--accent:#f59e0b;--cream:#fffaf1;--ink:#24160f;--muted:#76685f;--line:#eadfd2;--green:#16834a}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fffdf9;color:var(--ink)}
+header{background:linear-gradient(135deg,#6b210e,#9a3412);color:#fff;padding:24px 18px 28px}
+.wrap{max-width:980px;margin:auto}.top{display:flex;align-items:center;gap:12px}.logo{width:54px;height:54px;border-radius:16px;background:#fff1d5;color:var(--brand);display:grid;place-items:center;font-size:27px}
+h1{font-size:clamp(24px,5vw,36px);line-height:1.1;margin:0}header p{margin:7px 0 0;color:#ffe6d0}.tag{display:inline-block;margin-top:16px;background:#ffffff20;border:1px solid #ffffff40;border-radius:999px;padding:7px 11px;font-size:13px}
+main{padding:20px 14px 110px}.notice{background:#fff4d9;border:1px solid #f2d7a0;padding:12px 14px;border-radius:14px;font-size:13px;color:#6e4311;margin-bottom:18px}
+.section-title{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:22px 0 12px}.section-title h2{font-size:21px;margin:0}.section-title span{font-size:12px;color:var(--muted)}
+.menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.item{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff;display:flex;flex-direction:column;min-height:168px}
+.food-icon{font-size:28px;background:#fff5e7;border-radius:12px;width:48px;height:48px;display:grid;place-items:center;margin-bottom:10px}.item h3{font-size:16px;margin:0 0 4px}.desc{font-size:12px;color:var(--muted);line-height:1.4;flex:1}.price-row{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-top:12px}.price{font-weight:800;color:var(--brand)}button{border:0;cursor:pointer;font:inherit;font-weight:700;border-radius:10px;padding:10px 13px}.add{background:var(--brand);color:white}.secondary{background:#f6e8dc;color:var(--brand)}.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:14px}
+.cart-line{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #f1e8df}.cart-line:last-child{border-bottom:0}.qty{display:flex;align-items:center;gap:8px}.qty button{padding:4px 9px;background:#f6e8dc;color:var(--brand)}.total{font-size:20px;font-weight:800;display:flex;justify-content:space-between;padding-top:12px}
+label{display:block;font-size:13px;font-weight:700;margin:12px 0 6px}input,select,textarea{width:100%;font:inherit;padding:12px;border:1px solid #d9cabc;border-radius:10px;background:#fffdfb;color:var(--ink)}textarea{min-height:75px;resize:vertical}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice{display:flex;gap:8px;align-items:center;margin:8px 0;font-size:14px}.choice input{width:auto}.checkout{width:100%;background:var(--green);color:white;margin-top:14px;padding:14px}.hint{font-size:12px;color:var(--muted);line-height:1.5}.empty{color:var(--muted);font-size:14px;padding:8px 0}.setup summary{font-weight:800;cursor:pointer}.setup{margin-top:22px;background:#f8f3ed;border-radius:14px;padding:14px}.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:24px}
+.sticky{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;box-shadow:0 -4px 20px #34170e0b}.sticky small{display:block;color:var(--muted)}.sticky button{background:var(--brand);color:#fff}
+@media(min-width:700px){.menu{grid-template-columns:repeat(3,minmax(0,1fr))}main{padding-top:28px}.item{min-height:180px}}
+@media(max-width:360px){.menu{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+ <div class="top"><div class="logo">🍲</div><div><h1>Amina Special Waakye</h1><p>Your favourite Ghanaian meals, made with love.</p></div></div>
+ <div class="tag">📍 Behind China Mall, West Hills Road</div>
+</div></header>
+<main class="wrap">
+ <div class="notice"><strong>Welcome!</strong> Choose your meals, select pickup or delivery, and send your order directly to us on WhatsApp.</div>
+ <div class="section-title"><h2>Our menu</h2><span>Prices in Ghana cedis (GH₵)</span></div>
+ <div class="menu" id="menu"></div>
+ <section class="panel" id="cartPanel">
+  <div class="section-title" style="margin-top:0"><h2>🛒 Your order</h2><span id="itemCount">0 items</span></div>
+  <div id="cart"><div class="empty">Your cart is empty. Add a meal from the menu above.</div></div>
+  <div class="total"><span>Food subtotal</span><span id="subtotal">GH₵0.00</span></div>
+ </section>
+ <section class="panel">
+  <div class="section-title" style="margin-top:0"><h2>Order details</h2></div>
+  <form id="orderForm">
+   <div class="two"><div><label for="customer">Your name *</label><input id="customer" required placeholder="Full name"></div><div><label for="phone">Phone number *</label><input id="phone" required type="tel" placeholder="e.g. 024 000 0000"></div></div>
+   <label>How would you like your food? *</label>
+   <label class="choice"><input type="radio" name="fulfilment" value="Pickup" checked> Pickup</label>
+   <label class="choice"><input type="radio" name="fulfilment" value="Delivery"> Delivery</label>
+   <div id="deliveryFields" hidden><label for="address">Delivery address / landmark *</label><textarea id="address" placeholder="House number, area and nearby landmark"></textarea><label for="deliveryBand">Delivery distance and fee *</label><select id="deliveryBand"><option value="15">0–1 km · GH₵15</option><option value="20">Over 1–3 km · GH₵20</option><option value="40">Over 3–6 km · GH₵40</option><option value="60">Over 6–10 km · GH₵60</option><option value="confirm">Over 10 km — confirm fee with Amina</option></select><p class="hint">Delivery prices are proposed and should be confirmed with the rider. Orders over 10 km need a delivery-fee confirmation.</p><p id="deliverySummary" class="hint" aria-live="polite"></p></div>
+   <label for="payment">Preferred payment method *</label><select id="payment" required><option value="Cash on pickup/delivery">Cash on pickup/delivery</option><option value="Mobile Money">Mobile Money (confirm payment details with the seller)</option><option value="Other">Other / discuss with seller</option></select>
+   <label for="notes">Special instructions (optional)</label><textarea id="notes" placeholder="E.g. extra shito, no pepper…"></textarea>
+   <button class="checkout" type="submit">Send order on WhatsApp</button>
+   <p class="hint">This prepares an order message in WhatsApp. The order is not sent until you press Send in WhatsApp, and it is not confirmed until Amina replies.</p>
+  </form>
+ </section>
+
+ <div class="footer">Amina Special Waakye · Behind China Mall, West Hills Road · Made for easy mobile ordering</div>
+</main>
+<div class="sticky"><div><strong id="stickyTotal">GH₵0.00</strong><small id="stickyCount">No items yet</small></div><button onclick="document.getElementById('cartPanel').scrollIntoView({behavior:'smooth'})">View order ↓</button></div>
+<script>
+const defaultMenu=[
+{id:"waakye-small",name:"Waakye portion (small)",desc:"Small waakye portion.",price:10,icon:"🍛"},
+{id:"waakye-large",name:"Waakye portion (large)",desc:"Large waakye portion.",price:15,icon:"🍛"},
+{id:"egg",name:"Boiled egg",desc:"Add an egg to your meal.",price:5,icon:"🥚"},
+{id:"fish-small",name:"Fish portion (small)",desc:"Small fish portion.",price:15,icon:"🐟"},
+{id:"fish-large",name:"Fish portion (large)",desc:"Large fish portion.",price:20,icon:"🐟"},
+{id:"chicken",name:"Chicken",desc:"Seasoned chicken portion.",price:15,icon:"🍗"},
+{id:"beef",name:"Beef / meat",desc:"Meat side for your waakye.",price:20,icon:"🍖"},
+{id:"spaghetti",name:"Spaghetti",desc:"A serving of spaghetti.",price:5,icon:"🍝"},
+{id:"gari",name:"Gari & spaghetti mix",desc:"Add extra gari and spaghetti.",price:5,icon:"🥗"},
+{id:"wele",name:"Wele",desc:"Traditional spicy wele side.",price:8,icon:"🍲"},
+{id:"shito",name:"Extra shito",desc:"Extra pepper sauce on the side.",price:2,icon:"🌶️"},
+{id:"jollof",name:"Jollof rice",desc:"A Ghanaian favourite.",price:15,icon:"🍚"},
+{id:"salad-mix",name:"Salad mix",desc:"Fresh salad mix side.",price:10,icon:"🥗"},
+{id:"normal-salad",name:"Normal salad",desc:"Fresh simple salad.",price:5,icon:"🥬"}
+];
+let menuItems=JSON.parse(JSON.stringify(defaultMenu)),cart={};
+const money=n=>"GH₵"+Number(n).toFixed(2);
+function renderMenu(){document.getElementById("menu").innerHTML=menuItems.map(i=>`<article class="item"><div class="food-icon">${i.icon}</div><h3>${i.name}</h3><div class="desc">${i.desc}</div><div class="price-row"><span class="price">${money(i.price)}</span><button class="add" onclick="addItem('${i.id}')">+ Add</button></div></article>`).join("");}
+function addItem(id){cart[id]=(cart[id]||0)+1;renderCart();}
+function changeQty(id,delta){cart[id]=(cart[id]||0)+delta;if(cart[id]<=0)delete cart[id];renderCart();}
+function subtotal(){return menuItems.reduce((s,i)=>s+i.price*(cart[i.id]||0),0);}
+function renderCart(){let entries=menuItems.filter(i=>cart[i.id]);document.getElementById("itemCount").textContent=Object.values(cart).reduce((a,b)=>a+b,0)+" items";document.getElementById("cart").innerHTML=entries.length?entries.map(i=>`<div class="cart-line"><div><strong>${i.name}</strong><div class="hint">${money(i.price)} each</div></div><div class="qty"><button type="button" onclick="changeQty('${i.id}',-1)">−</button><strong>${cart[i.id]}</strong><button type="button" onclick="changeQty('${i.id}',1)">+</button></div></div>`).join(""):'<div class="empty">Your cart is empty. Add a meal from the menu above.</div>';document.getElementById("subtotal").textContent=money(subtotal());document.getElementById("stickyTotal").textContent=money(subtotal());document.getElementById("stickyCount").textContent=Object.values(cart).reduce((a,b)=>a+b,0)?Object.values(cart).reduce((a,b)=>a+b,0)+" item(s) in your order":"No items yet";}
+function selectedDeliveryFee(){if(document.querySelector('input[name="fulfilment"]:checked').value!=="Delivery")return 0;let v=document.getElementById("deliveryBand").value;return v==="confirm"?null:Number(v);}
+function updateDeliverySummary(){let fee=selectedDeliveryFee();let el=document.getElementById("deliverySummary");if(!el)return;el.textContent=fee===null?"Delivery fee and total will be confirmed by Amina.":`Estimated delivery: ${money(fee)} · Estimated total: ${money(subtotal()+fee)}`;}
+document.querySelectorAll('input[name="fulfilment"]').forEach(el=>el.addEventListener("change",()=>{let isDelivery=document.querySelector('input[name="fulfilment"]:checked').value==="Delivery";document.getElementById("deliveryFields").hidden=!isDelivery;document.getElementById("address").required=isDelivery;updateDeliverySummary();}));
+document.getElementById("deliveryBand").addEventListener("change",updateDeliverySummary);
+document.getElementById("orderForm").addEventListener("submit",e=>{e.preventDefault();if(!Object.keys(cart).length){alert("Please add at least one item to your order.");return;}let phone="233553705788";
+let name=document.getElementById("customer").value.trim(),customerPhone=document.getElementById("phone").value.trim(),fulfilment=document.querySelector('input[name="fulfilment"]:checked').value,address=document.getElementById("address").value.trim(),fee=fulfilment==="Delivery"?selectedDeliveryFee():0,payment=document.getElementById("payment").value,notes=document.getElementById("notes").value.trim();
+let lines=menuItems.filter(i=>cart[i.id]).map(i=>`• ${i.name} x${cart[i.id]} — ${money(i.price*cart[i.id])}`);
+let total=fee===null?null:subtotal()+fee;
+let deliveryText=fee===null?"Delivery fee: To be confirmed by Amina":"Delivery fee (estimate): "+money(fee);
+let totalText=total===null?"Estimated total: To be confirmed by Amina":"Estimated total: "+money(total);
+let message=`Hello Amina Special Waakye! I'd like to place an order:\n\n${lines.join("\n")}\n\nFood subtotal: ${money(subtotal())}\n${deliveryText}\n${totalText}\n\nCustomer: ${name}\nPhone: ${customerPhone}\nFulfilment: ${fulfilment}${fulfilment==="Delivery"?"\nDelivery address: "+address:""}\nPayment preference: ${payment}${notes?"\nSpecial instructions: "+notes:""}\n\nPlease confirm availability, delivery fee (if applicable), final total and estimated time.`;
+window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(message),"_blank");
+});
+renderMenu();renderCart();updateDeliverySummary();
+</script>
+</body>
+</html>
